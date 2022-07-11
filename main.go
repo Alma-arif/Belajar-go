@@ -21,6 +21,32 @@ func main() {
 	userRepository := user.NewRepository(db)
 	userService := user.NewService(userRepository)
 
+	// cek service login
+	// input := user.LoginInput{
+	// 	Email:    "aku@mail.com",
+	// 	Password: "passworda",
+	// }
+
+	// user, err := userService.Login(input)
+
+	// if err != nil {
+	// 	fmt.Println(err.Error())
+	// }
+
+	// fmt.Println(user.Email)
+
+	// cek repository by email
+	// userByEmail, err := userRepository.FindByEmail("@mail.com")
+	// if err != nil {
+	// 	fmt.Println(err.Error())
+	// }
+
+	// if userByEmail.ID == 0 {
+	// 	fmt.Println("user tidak di temukan")
+	// } else {
+	// 	fmt.Println(userByEmail.Email)
+	// }
+
 	userHandler := handler.NewUserHandler(userService)
 
 	routes := gin.Default()
@@ -28,6 +54,7 @@ func main() {
 	api := routes.Group("/api/v1")
 
 	api.POST("/users", userHandler.RegisterUser)
+	api.POST("/sessions", userHandler.Login)
 
 	routes.Run()
 
