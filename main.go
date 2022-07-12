@@ -4,6 +4,7 @@ import (
 	"belajar-go/auth"
 	"belajar-go/handler"
 	"belajar-go/user"
+	"fmt"
 	"log"
 
 	"github.com/gin-gonic/gin"
@@ -24,6 +25,22 @@ func main() {
 	authService := auth.NewService()
 
 	// fmt.Println(authService.GenerateToken(10))
+
+	token, err := authService.ValidateToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo2fQ._ZqlWXLmUva8BDYev0XWcoN0xYVMpvhlsZUypT_96oY")
+
+	if err != nil {
+		fmt.Println("erroe")
+		fmt.Println("erroe")
+
+	}
+
+	if token.Valid {
+		fmt.Println("valid")
+		fmt.Println("valid")
+	} else {
+		fmt.Println("invalid")
+		fmt.Println("invalid")
+	}
 
 	// userService.SaveAvatar(1, "images/1-profile.png")
 	// cek service login
