@@ -21,6 +21,7 @@ func main() {
 	userRepository := user.NewRepository(db)
 	userService := user.NewService(userRepository)
 
+	// userService.SaveAvatar(1, "images/1-profile.png")
 	// cek service login
 	// input := user.LoginInput{
 	// 	Email:    "aku@mail.com",
@@ -38,7 +39,7 @@ func main() {
 	// cek repository by email
 	// userByEmail, err := userRepository.FindByEmail("@mail.com")
 	// if err != nil {
-	// 	fmt.Println(err.Error())
+	// 	fmt.Println(er r.Error())
 	// }
 
 	// if userByEmail.ID == 0 {
@@ -56,6 +57,7 @@ func main() {
 	api.POST("/users", userHandler.RegisterUser)
 	api.POST("/sessions", userHandler.Login)
 	api.POST("/email_checkers", userHandler.CheckEmailAvailability)
+	api.POST("/avatars", userHandler.UploadAvatar)
 
 	routes.Run()
 
