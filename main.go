@@ -1,6 +1,7 @@
 package main
 
 import (
+	"belajar-go/auth"
 	"belajar-go/handler"
 	"belajar-go/user"
 	"log"
@@ -20,6 +21,9 @@ func main() {
 
 	userRepository := user.NewRepository(db)
 	userService := user.NewService(userRepository)
+	authService := auth.NewService()
+
+	// fmt.Println(authService.GenerateToken(10))
 
 	// userService.SaveAvatar(1, "images/1-profile.png")
 	// cek service login
@@ -48,7 +52,7 @@ func main() {
 	// 	fmt.Println(userByEmail.Email)
 	// }
 
-	userHandler := handler.NewUserHandler(userService)
+	userHandler := handler.NewUserHandler(userService, authService)
 
 	routes := gin.Default()
 
