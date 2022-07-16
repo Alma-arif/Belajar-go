@@ -82,13 +82,13 @@ func main() {
 	api.POST("/users", userHandler.RegisterUser)
 	api.POST("/sessions", userHandler.Login)
 	api.POST("/email_checkers", userHandler.CheckEmailAvailability)
-	api.POST("/avatars", authMiddlemare(authService, userService), userHandler.UploadAvatar)
+	api.POST("/avatars", authMiddleware(authService, userService), userHandler.UploadAvatar)
 
 	routes.Run()
 
 }
 
-func authMiddlemare(authService auth.Service, userService user.Service) gin.HandlerFunc {
+func authMiddleware(authService auth.Service, userService user.Service) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		authHeader := c.GetHeader("Authorization")
 
