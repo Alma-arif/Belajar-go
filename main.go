@@ -6,7 +6,6 @@ import (
 	"belajar-go/handler"
 	"belajar-go/helper"
 	"belajar-go/user"
-	"fmt"
 	"log"
 	"net/http"
 	"strings"
@@ -38,13 +37,13 @@ func main() {
 	campaignService := campaign.NewService(campaignRepository)
 	authService := auth.NewService()
 
-	data, _ := campaignService.FindCampaigns(6)
+	// data, _ := campaignService.FindCampaigns(6)
 
-	// fmt.Println(data)
-	for _, d := range data {
-		fmt.Println(d)
+	// // fmt.Println(data)
+	// for _, d := range data {
+	// 	fmt.Println(d)
 
-	}
+	// }
 
 	// fmt.Println(authService.GenerateToken(10))
 
@@ -76,7 +75,7 @@ func main() {
 	// }
 
 	userHandler := handler.NewUserHandler(userService, authService)
-
+	campaignHandler := handler.NewCampaignHandler(campaignService)
 	routes := gin.Default()
 
 	api := routes.Group("/api/v1")
@@ -86,6 +85,7 @@ func main() {
 	api.POST("/email_checkers", userHandler.CheckEmailAvailability)
 	api.POST("/avatars", authMiddleware(authService, userService), userHandler.UploadAvatar)
 
+	api.GET("/campaigns", campaignHandler.GetCampaigns)
 	routes.Run()
 
 }
