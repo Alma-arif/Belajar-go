@@ -2,6 +2,7 @@ package main
 
 import (
 	"belajar-go/auth"
+	"belajar-go/campaign"
 	"belajar-go/handler"
 	"belajar-go/helper"
 	"belajar-go/user"
@@ -25,26 +26,18 @@ func main() {
 	}
 
 	userRepository := user.NewRepository(db)
+	campaignRepository := campaign.NewRepository(db)
+	campaign, _ := campaignRepository.FindByUserID(6)
+
+	for _, campaigns := range campaign {
+		fmt.Println(campaigns.CampaignImages[0].FileName)
+
+	}
+
 	userService := user.NewService(userRepository)
 	authService := auth.NewService()
 
 	// fmt.Println(authService.GenerateToken(10))
-
-	token, err := authService.ValidateToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo2fQ._ZqlWXLmUva8BDYev0XWcoN0xYVMpvhlsZUypT_96oY")
-
-	if err != nil {
-		fmt.Println("erroe")
-		fmt.Println("erroe")
-
-	}
-
-	if token.Valid {
-		fmt.Println("valid")
-		fmt.Println("valid")
-	} else {
-		fmt.Println("invalid")
-		fmt.Println("invalid")
-	}
 
 	// userService.SaveAvatar(1, "images/1-profile.png")
 	// cek service login
