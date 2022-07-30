@@ -74,6 +74,21 @@ func main() {
 	// 	fmt.Println(userByEmail.Email)
 	// }
 
+	// input := campaign.CreateCampaignInput{}
+
+	// input.Name = "ayoo bagi duit"
+	// input.ShortDescription = "sokkoko"
+	// input.Description = "description ayo bagi duit"
+	// input.GoalAmount = 100000000
+	// input.Perks = "ayo, dia, makan, aku"
+
+	// inputUser, _ := userService.FindUserByID(6)
+	// input.User = inputUser
+
+	// _, err = campaignService.CreateCampaign(input)
+	// if err != nil {
+	// 	log.Fatal(err.Error())
+
 	userHandler := handler.NewUserHandler(userService, authService)
 	campaignHandler := handler.NewCampaignHandler(campaignService)
 	routes := gin.Default()
@@ -88,6 +103,7 @@ func main() {
 
 	api.GET("/campaigns", campaignHandler.GetCampaigns)
 	api.GET("/campaigns/:id", campaignHandler.GetCampaign)
+	api.POST("/campaigns", authMiddleware(authService, userService), campaignHandler.CreateCampaign)
 
 	routes.Run()
 
